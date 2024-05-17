@@ -1,4 +1,4 @@
-import Paragraph from "./Components/Paragraph";
+import { Paragraph } from "./Components/Paragraph";
 
 const text =
   "We help companies identify product-market fit through user research and iterative testing. By collaborating with internal stakeholders, we solve product and UX challenges by crafting seamless, user-centric solutions and bringing visuals to life from development to launch.";
