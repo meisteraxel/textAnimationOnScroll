@@ -2,7 +2,7 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-const ParagraphImage = () => {
+const ParagraphImageTwo = () => {
   const textRef = useRef(null);
   const { scrollYProgress } = useScroll({
     target: textRef,
@@ -113,7 +113,7 @@ const ParagraphImage = () => {
         return (
           <motion.span
             key={index}
-            className="mr-3 mt-3 transition-all duration-500"
+            className="mr-3 mt-3 transition-opacity"
             style={{ opacity: opacityTransform }}
           >
             {word}{" "}
@@ -124,4 +124,4 @@ const ParagraphImage = () => {
   );
 };
 
-export default ParagraphImage;
+export default ParagraphImageTwo;
