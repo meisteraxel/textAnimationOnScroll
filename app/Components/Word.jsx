@@ -10,7 +10,7 @@ const Word = ({ word, index, scrollYProgress, totalWords }) => {
   return (
     <motion.span
       key={index}
-      className="mr-3 mt-3 transition-all duration-500"
+      className="mt-3 mr-3 transition-all duration-500"
       style={{ opacity: wordOpacity }}
     >
       {word}{" "}

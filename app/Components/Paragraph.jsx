@@ -74,10 +74,22 @@ const Paragraph = () => {
       ref={textRef}
       className="text-5xl max-w-5xl p-10 mx-auto relative flex items-center flex-wrap leading-[1.3] font-semibold"
     >
-      {words.map((word, index) => {
-        if (typeof word === "object" && word.type === "image") {
+      <p className="flex flex-wrap items-center">
+        {words.map((word, index) => {
+          if (typeof word === "object" && word.type === "image") {
+            return (
+              <ImageWord
+                key={index}
+                word={word}
+                index={index}
+                scrollYProgress={scrollYProgress}
+                totalWords={words.length}
+              />
+            );
+          }
+
           return (
-            <ImageWord
+            <Word
               key={index}
               word={word}
               index={index}
@@ -85,18 +97,8 @@ const Paragraph = () => {
               totalWords={words.length}
             />
           );
-        }
-
-        return (
-          <Word
-            key={index}
-            word={word}
-            index={index}
-            scrollYProgress={scrollYProgress}
-            totalWords={words.length}
-          />
-        );
-      })}
+        })}
+      </p>
     </div>
   );
 };
