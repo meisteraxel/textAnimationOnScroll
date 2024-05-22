@@ -2,6 +2,26 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
+const useTransforms = (words, scrollYProgress) => {
+  return words.map((word, index) => {
+    const opacityTransform = useTransform(
+      scrollYProgress,
+      [index / words.length, (index + 1) / words.length],
+      [0.1, 1]
+    );
+    const maxWidthTransform =
+      typeof word === "object" && word.type === "image"
+        ? useTransform(
+            scrollYProgress,
+            [index / words.length, (index + 1) / words.length],
+            ["0px", "100%"]
+          )
+        : undefined;
+
+    return { opacityTransform, maxWidthTransform };
+  });
+};
+
 const ParagraphImageTwo = () => {
   const textRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -67,23 +87,7 @@ const ParagraphImageTwo = () => {
     },
   ];
 
-  const transforms = words.map((word, index) => {
-    const opacityTransform = useTransform(
-      scrollYProgress,
-      [index / words.length, (index + 1) / words.length],
-      [0.1, 1]
-    );
-    const maxWidthTransform =
-      typeof word === "object" && word.type === "image"
-        ? useTransform(
-            scrollYProgress,
-            [index / words.length, (index + 1) / words.length],
-            ["0px", "100%"]
-          )
-        : undefined;
-
-    return { opacityTransform, maxWidthTransform };
-  });
+  const transforms = useTransforms(words, scrollYProgress);
 
   return (
     <div
