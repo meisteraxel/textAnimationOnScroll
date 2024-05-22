@@ -1,6 +1,8 @@
 "use client";
 import { useRef } from "react";
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion, useScroll } from "framer-motion";
+import Word from "./Word";
+import ImageWord from "./ImageWord";
 
 const Paragraph = () => {
   const textRef = useRef(null);
@@ -74,47 +76,25 @@ const Paragraph = () => {
     >
       {words.map((word, index) => {
         if (typeof word === "object" && word.type === "image") {
-          const wordOpacity = useTransform(
-            scrollYProgress,
-            [index / words.length, (index + 1) / words.length],
-            [0, 1]
-          );
-          const maxWidth = useTransform(
-            scrollYProgress,
-            [index / words.length, (index + 1) / words.length],
-            ["0px", "100%"]
-          );
-
           return (
-            <motion.div
+            <ImageWord
               key={index}
-              className="overflow-hidden inline-block mt-4 mr-3 transition-all duration-500"
-              style={{ opacity: wordOpacity, maxWidth }}
-            >
-              <motion.img
-                src={word.src}
-                alt={word.alt}
-                style={word.style}
-                className="rounded-full"
-              />
-            </motion.div>
+              word={word}
+              index={index}
+              scrollYProgress={scrollYProgress}
+              totalWords={words.length}
+            />
           );
         }
 
-        const wordOpacity = useTransform(
-          scrollYProgress,
-          [index / words.length, (index + 1) / words.length],
-          [0.1, 1]
-        );
-
         return (
-          <motion.span
+          <Word
             key={index}
-            className="mr-3 mt-3 transition-all duration-500"
-            style={{ opacity: wordOpacity }}
-          >
-            {word}{" "}
-          </motion.span>
+            word={word}
+            index={index}
+            scrollYProgress={scrollYProgress}
+            totalWords={words.length}
+          />
         );
       })}
     </div>
