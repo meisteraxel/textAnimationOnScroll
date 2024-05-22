@@ -1,10 +1,10 @@
-import Paragraph from "./Components/Paragraph";
+import ParagraphImage from "./Components/ParagraphImage";
 
 export default function Home() {
   return (
     <>
       <div className="h-screen"></div>
-      <Paragraph />
+      <ParagraphImage />
       <div className="h-screen"></div>
     </>
   );
