@@ -2,26 +2,6 @@
 import { useRef } from "react";
 import { motion, useScroll, useTransform } from "framer-motion";
 
-const useTransforms = (words, scrollYProgress) => {
-  return words.map((word, index) => {
-    const opacityTransform = useTransform(
-      scrollYProgress,
-      [index / words.length, (index + 1) / words.length],
-      [0.1, 1]
-    );
-    const maxWidthTransform =
-      typeof word === "object" && word.type === "image"
-        ? useTransform(
-            scrollYProgress,
-            [index / words.length, (index + 1) / words.length],
-            ["0px", "100%"]
-          )
-        : undefined;
-
-    return { opacityTransform, maxWidthTransform };
-  });
-};
-
 const ParagraphImage = () => {
   const textRef = useRef(null);
   const { scrollYProgress } = useScroll({
@@ -42,12 +22,12 @@ const ParagraphImage = () => {
     "and",
     "iterative",
     "testing.",
-    {
+    /*{
       type: "image",
       src: "/girl.jpg",
       alt: "anime-girl",
       style: { height: "80px" },
-    },
+    },*/
     "By",
     "collaborating",
     "with",
@@ -64,12 +44,12 @@ const ParagraphImage = () => {
     "seamless,",
     "user-centric",
     "solutions",
-    {
+    /*{
       type: "image",
       src: "/Circle.gif",
       alt: "Circle",
       style: { height: "100px" },
-    },
+    },*/
     "and",
     "bringing",
     "visuals",
@@ -79,15 +59,13 @@ const ParagraphImage = () => {
     "development",
     "to",
     "launch.",
-    {
+    /*{
       type: "image",
       src: "/GreenArrow.gif",
       alt: "green-arrow",
       style: { height: "100px" },
-    },
+    },*/
   ];
-
-  const transforms = useTransforms(words, scrollYProgress);
 
   return (
     <div
@@ -95,14 +73,23 @@ const ParagraphImage = () => {
       className="text-5xl max-w-5xl p-10 mx-auto relative flex items-center flex-wrap leading-[1.3] font-semibold"
     >
       {words.map((word, index) => {
-        const { opacityTransform, maxWidthTransform } = transforms[index];
+        /*if (typeof word === "object" && word.type === "image") {
+          const wordOpacity = useTransform(
+            scrollYProgress,
+            [index / words.length, (index + 1) / words.length],
+            [0, 1]
+          );
+          const maxWidth = useTransform(
+            scrollYProgress,
+            [index / words.length, (index + 1) / words.length],
+            ["0px", "100%"]
+          );
 
-        if (typeof word === "object" && word.type === "image") {
           return (
             <motion.div
               key={index}
               className="overflow-hidden inline-block mt-4 mr-3 transition-all duration-500"
-              style={{ opacity: opacityTransform, maxWidth: maxWidthTransform }}
+              style={{ opacity: wordOpacity, maxWidth }}
             >
               <motion.img
                 src={word.src}
@@ -112,13 +99,19 @@ const ParagraphImage = () => {
               />
             </motion.div>
           );
-        }
+        }*/
+
+        const wordOpacity = useTransform(
+          scrollYProgress,
+          [index / words.length, (index + 1) / words.length],
+          [0.1, 1]
+        );
 
         return (
           <motion.span
             key={index}
             className="mr-3 mt-3 transition-all duration-500"
-            style={{ opacity: opacityTransform }}
+            style={{ opacity: wordOpacity }}
           >
             {word}{" "}
           </motion.span>
